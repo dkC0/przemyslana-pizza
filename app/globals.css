@@ -1,26 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&family=DM+Mono:wght@400&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Warm dark palette — references restaurant interior */
+  --color-obsidian: #1A0F05;
+  --color-obsidian-2: #261606;
+  --color-pomidoro: #9E1B32;
+  --color-pomidoro-dark: #7A1225;
+  --color-scorch: #E17055;
+  --color-amber: #B87316;
+  --color-amber-light: #E8920A;
+  --color-dough-cream: #EFCF60;
+  --color-signal-white: #FAF0D8;
+  --color-char: #2E1C08;
+  --color-warm-gray: #B8A07A;
+  --color-muted: #7A6040;
+
+  --font-family-display: 'Space Grotesk', sans-serif;
+  --font-family-body: 'Inter', sans-serif;
+  --font-family-mono: 'DM Mono', monospace;
+
+  --animate-pulse-cta: pulseCTA 2s ease-out 3;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes pulseCTA {
+  0% { box-shadow: 0 0 0 0 rgba(184, 115, 22, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(184, 115, 22, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(184, 115, 22, 0); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    background-color: #1A0F05;
+    color: #FAF4E8;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    background: #B87316;
+    color: #FAF4E8;
+    padding: 8px 16px;
+    font-size: 14px;
+    z-index: 9999;
+    transition: top 0.1s;
+  }
+
+  .skip-link:focus {
+    top: 16px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  :focus-visible {
+    outline: 2px solid #B87316;
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #1A0F05;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #3A2410;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #B87316;
+  }
+
+  /* Grain texture for dark sections */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    pointer-events: none;
+    z-index: 0;
+  }
 }
